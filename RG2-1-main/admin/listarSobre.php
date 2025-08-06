@@ -1,19 +1,5 @@
-<?php
-include("../banco/conexao.php");
-
-if (isset($_GET['idUsuario'])) {
-    $usuario_id = mysqli_real_escape_string($conexao, $_GET['idUsuario']);
-    $sql = "SELECT nomeUsuario, emailUsuario, loginUsuario FROM usuarios WHERE idUsuario = '$usuario_id'";
-    $query = mysqli_query($conexao, $sql);
-
-    if (mysqli_num_rows($query) > 0) {
-        $usuario = mysqli_fetch_array($query);
-    } else {
-        die("<h5>Usuário não encontrado!</h5>");
-    }
-} else {
-    die("<h5>ID do usuário não informado!</h5>");
-}
+<?php 
+    include ("../banco/conexao.php");
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +20,7 @@ if (isset($_GET['idUsuario'])) {
 
 <body>
     <!-- MENU LATERAL (expansão por hover já em styleadmin.css) -->
-     <nav class="menu" id="menuAdmin">
+    <nav class="menu" id="menuAdmin">
         <ul class="menu-content">
             <li><a href="#Home"><span class="material-symbols-outlined">home</span><span>Home</span></a></li>
             <li class="dropdown">
@@ -66,19 +52,54 @@ if (isset($_GET['idUsuario'])) {
             <li><a href="#Logout"><span class="material-symbols-outlined">logout</span><span>Logout</span></a></li>
         </ul>
     </nav>
-<main>
-  <div class="admin-card">
-    <h2>Detalhes do Usuário</h2>
+   <main>
 
-    <p><strong>Nome:</strong> <?= htmlspecialchars($usuario['nomeUsuario']) ?></p>
-    <p><strong>E-mail:</strong> <?= htmlspecialchars($usuario['emailUsuario']) ?></p>
-    <p><strong>Login:</strong> <?= htmlspecialchars($usuario['loginUsuario']) ?></p>
 
-    <div style="margin-top: 24px;">
-      <a href="listarUsuarios.php" class="botao-admin">Voltar</a>
-    </div>
-  </div>
-</main>
+        <div class="admin-card">
+            <h2>Sobre</h2>
 
+            <table class="tabela-admin">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Texto</th>
+                        <th>Imagem</th>
+                        <th>Missão</th>
+                        <th>Visão</th>
+                        <th>Valores</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                        $sql = "SELECT idSobre, textoSobre, imagemSobre, missaoSobre, visaoSobre, valoresSobre FROM sobre";
+                        $sobre = mysqli_query($conexao, $sql);
+
+                        if (mysqli_num_rows($sobre) > 0) {
+                            foreach($sobre as $sobre) {
+                    ?>
+                    <tr>
+                        <td><?= htmlspecialchars($sobre['idSobre']) ?></td>
+                        <td><?= htmlspecialchars($sobre['textoSobre']) ?></td>
+                        <td><?= htmlspecialchars($sobre['imagemSobre']) ?></td>
+                        <td><?= htmlspecialchars($sobre['missaoSobre']) ?></td>
+                        <td><?= htmlspecialchars($sobre['visaoSobre']) ?></td>
+                        <td><?= htmlspecialchars($sobre['valoresSobre']) ?></td>
+                        <td>
+                            <a href="verSobre.php?idSobre=<?= $sobre['idSobre'] ?>" class="botao-acao">Ver</a>
+                            <a href="fmrEditarSobre.php?idSobre=<?= $sobre['idSobre'] ?>" class="botao-acao botao-editar">Editar</a>
+                        </td>
+                    </tr>
+                    <?php
+                            }
+                        } else {
+                            echo '<tr><td colspan="5">Nenhum usuário encontrado.</td></tr>';
+                        }
+                    ?>
+                </tbody>
+            </table>
+
+        </div>
+    </main>
 </body>
+
 </html>

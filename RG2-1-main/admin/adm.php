@@ -1,3 +1,11 @@
+<?php 
+
+session_start();
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -6,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Painel Administrativo - RG2 Sports</title>
     <!-- Estilos base do admin -->
-    <link rel="stylesheet" href="folha/styleadmin.css" />
+    <link rel="stylesheet" href="../folha/styleadmin.css" />
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <style>
@@ -20,8 +28,13 @@
         <ul class="menu-content">
             <li><a href="#Home"><span class="material-symbols-outlined">home</span><span>Home</span></a></li>
             <li><a href="#Sobre"><span class="material-symbols-outlined">dashboard</span><span>Sobre</span></a></li>
-            <li><a href="#Modalidades"><span
-                        class="material-symbols-outlined">sports_soccer</span><span>Modalidades</span></a>
+<li class="dropdown">
+            <a href="#"><span class="material-symbols-outlined">sports_soccer</span><span>Modalidades</span></a>
+  <ul class="dropdown-content">
+    <li><a href="frmCadastrarModalidades.php"><span class="material-symbols-outlined">person_add</span><span>Cadastrar</span></a></li>
+    <li><a href="listarModalidades.php"><span class="material-symbols-outlined">list</span><span>Listar</span></a></li>
+  </ul>
+</li>
                         
             <li><a href="#Galeria"><span class="material-symbols-outlined">photo_library</span><span>Galeria</span></a>
             </li>
@@ -32,8 +45,8 @@
                         <li class="dropdown">
                             <a href="#"><span class="material-symbols-outlined">person</span><span>Usuários</span></a>
                             <ul class="dropdown-content">
-                              <li><a href="admin/fmrCadastrarUsuario.php"><span class="material-symbols-outlined">person_add</span><span>Cadastrar</span></a></li>
-                              <li><a href="admin/listarUsuarios.php"><span class="material-symbols-outlined">list</span><span>Listar</span></a></li>
+                              <li><a href="fmrCadastrarUsuario.php"><span class="material-symbols-outlined">person_add</span><span>Cadastrar</span></a></li>
+                              <li><a href="listarUsuarios.php"><span class="material-symbols-outlined">list</span><span>Listar</span></a></li>
                             </ul>
                           </li>
                           
@@ -44,7 +57,7 @@
 
     <main>
         <div class="imagem-direita">
-        <img src="imagens/RG2 Sports.pngTransparente.png" alt="">
+        <img src="../imagens/RG2 Sports.pngTransparente.png" alt="">
         </div>
     </main>
    

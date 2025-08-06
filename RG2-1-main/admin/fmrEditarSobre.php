@@ -1,19 +1,5 @@
 <?php
-include("../banco/conexao.php");
-
-if (isset($_GET['idUsuario'])) {
-    $usuario_id = mysqli_real_escape_string($conexao, $_GET['idUsuario']);
-    $sql = "SELECT nomeUsuario, emailUsuario, loginUsuario FROM usuarios WHERE idUsuario = '$usuario_id'";
-    $query = mysqli_query($conexao, $sql);
-
-    if (mysqli_num_rows($query) > 0) {
-        $usuario = mysqli_fetch_array($query);
-    } else {
-        die("<h5>Usuário não encontrado!</h5>");
-    }
-} else {
-    die("<h5>ID do usuário não informado!</h5>");
-}
+    include ("../banco/conexao.php");
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +20,7 @@ if (isset($_GET['idUsuario'])) {
 
 <body>
     <!-- MENU LATERAL (expansão por hover já em styleadmin.css) -->
-     <nav class="menu" id="menuAdmin">
+    <nav class="menu" id="menuAdmin">
         <ul class="menu-content">
             <li><a href="#Home"><span class="material-symbols-outlined">home</span><span>Home</span></a></li>
             <li class="dropdown">
@@ -68,15 +54,45 @@ if (isset($_GET['idUsuario'])) {
     </nav>
 <main>
   <div class="admin-card">
-    <h2>Detalhes do Usuário</h2>
+    <h2>Editar Sobre</h2>
+    <?php
+                        if(isset($_GET['idSobre'])) {
+                            $sobre_id = mysqli_real_escape_string($conexao, $_GET['idSobre']);
+                            $sql = "SELECT * FROM sobre WHERE idSobre = '$sobre_id'";
+                            $query = mysqli_query($conexao, $sql);
 
-    <p><strong>Nome:</strong> <?= htmlspecialchars($usuario['nomeUsuario']) ?></p>
-    <p><strong>E-mail:</strong> <?= htmlspecialchars($usuario['emailUsuario']) ?></p>
-    <p><strong>Login:</strong> <?= htmlspecialchars($usuario['loginUsuario']) ?></p>
+                            if (mysqli_num_rows($query) > 0) {
+                                $sobre = mysqli_fetch_array($query);
+                    ?>
+    <form action="editarSobre.php" method="post">
+      <input type="hidden" name="idSobre" value="<?= $sobre['idSobre'] ?>">
 
-    <div style="margin-top: 24px;">
-      <a href="listarUsuarios.php" class="botao-admin">Voltar</a>
-    </div>
+      <label for="textoSobre">Texto</label>
+      <input type="text" class="form-control" name="textoSobre" id="textoSobre" value="<?= $sobre['textoSobre']?>">
+
+      <label for="missaoSobre">Missão</label>
+      <input type="text" name="missaoSobre" id="missaoSobre" class="form-control" value="<?= $sobre['missaoSobre'] ?>" required><br>
+
+      <label for="visaoSobre">Visão</label>
+      <input type="text" name="visaoSobre" id="visaoSobre" class="form-control" value="<?= $sobre['visaoSobre'] ?>" required><br>
+
+      <label for="valoresSobre">Valores</label>
+      <input type="text" name="valoresSobre" id="valoresSobre" class="form-control" value="<?= $sobre['valoresSobre'] ?>" required><br>
+
+      <label for="imagemSobre">Imagem</label>
+            <img id="sobrePreview" class="preview-img"
+                src="imagens/Firefly_foto aérea de uma escola de esportes 98422.jpg" alt="Preview Sobre" />
+            <input type="file" id="imagemSobre" accept="image/*" />
+
+      <button type="submit" name="editarSobre" class="botao-admin">Salvar Alterações</button>
+    </form>
+    <?php
+                            } else {
+                                echo "<h5>Usuário não encontrado</h5>";
+                            }
+                    }
+                    ?>
+
   </div>
 </main>
 

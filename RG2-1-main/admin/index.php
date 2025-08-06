@@ -1,3 +1,7 @@
+<?php 
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -8,7 +12,6 @@
 </head>
 <body>
 
-<h2>Login Form</h2>
 <?php
 if (isset($_SESSION['nao_autenticado'])):
 ?>
@@ -19,17 +22,17 @@ unset($_SESSION['nao_autenticado']);
 endif;
 ?>
 
-<form action="/RG2/admin/login.php" method="post">
+<form action="login.php" method="post">
   <div class="imgcontainer">
     <img src="../imagens/Logo Dinâmico RG2 Sports.png" alt="Avatar" class="avatar">
   </div>
 
   <div class="container">
     <label for="uname"><b>Nome de Usuário</b></label>
-    <input type="text" placeholder="Nome de Usuário" name="nomedeusuario" required>
+    <input type="text" placeholder="Nome de Usuario" name="nomeUsuario" required>
 
     <label for="psw"><b>Senha</b></label>
-    <input type="password" placeholder="Senha" name="senha" required>
+    <input type="password" placeholder="Senha" name="senhaUsuario" required>
         
     <button type="submit">Entrar</button>
     <label>

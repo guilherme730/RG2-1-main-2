@@ -1,19 +1,5 @@
 <?php
-include("../banco/conexao.php");
-
-if (isset($_GET['idUsuario'])) {
-    $usuario_id = mysqli_real_escape_string($conexao, $_GET['idUsuario']);
-    $sql = "SELECT nomeUsuario, emailUsuario, loginUsuario FROM usuarios WHERE idUsuario = '$usuario_id'";
-    $query = mysqli_query($conexao, $sql);
-
-    if (mysqli_num_rows($query) > 0) {
-        $usuario = mysqli_fetch_array($query);
-    } else {
-        die("<h5>Usuário não encontrado!</h5>");
-    }
-} else {
-    die("<h5>ID do usuário não informado!</h5>");
-}
+    include ("../banco/conexao.php");
 ?>
 
 <!DOCTYPE html>
@@ -68,15 +54,37 @@ if (isset($_GET['idUsuario'])) {
     </nav>
 <main>
   <div class="admin-card">
-    <h2>Detalhes do Usuário</h2>
+    <h2>Editar Modalidade</h2>
+    <?php
+                        if(isset($_GET['idModalidade'])) {
+                            $modalidade_id = mysqli_real_escape_string($conexao, $_GET['idModalidade']);
+                            $sql = "SELECT * FROM modalidades WHERE idModalidade = '$modalidade_id'";
+                            $query = mysqli_query($conexao, $sql);
 
-    <p><strong>Nome:</strong> <?= htmlspecialchars($usuario['nomeUsuario']) ?></p>
-    <p><strong>E-mail:</strong> <?= htmlspecialchars($usuario['emailUsuario']) ?></p>
-    <p><strong>Login:</strong> <?= htmlspecialchars($usuario['loginUsuario']) ?></p>
+                            if (mysqli_num_rows($query) > 0) {
+                                $modalidade = mysqli_fetch_array($query);
+                    ?>
+    <form action="editarModalidade.php" method="post">
+      <input type="hidden" name="idModalidade" value="<?= $modalidade['idModalidade'] ?>">
 
-    <div style="margin-top: 24px;">
-      <a href="listarUsuarios.php" class="botao-admin">Voltar</a>
-    </div>
+      <label for="nomeModalidade">Nome</label>
+      <input type="text" class="form-control" name="nomeModalidade" id="nomeModalidade" value="<?= $modalidade['nomeModalidade']?>">
+
+      <label for="textoModalidade">Descrição</label>
+      <input type="text" name="textoModalidade" id="textoModalidade" class="form-control" value="<?= $modalidade['textoModalidade'] ?>" required><br>
+
+      <label for="professorModalidade">Professores</label>
+      <input type="text" name="professorModalidade" id="professorModalidade" class="form-control" value="<?= $modalidade['professorModalidade'] ?>" required><br>
+
+      <button type="submit" name="editarModalidade" class="botao-admin">Salvar Alterações</button>
+    </form>
+    <?php
+                            } else {
+                                echo "<h5>Modalidade não encontrada</h5>";
+                            }
+                    }
+                    ?>
+
   </div>
 </main>
 

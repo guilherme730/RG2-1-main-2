@@ -1,19 +1,6 @@
 <?php
 include("../banco/conexao.php");
 
-if (isset($_GET['idUsuario'])) {
-    $usuario_id = mysqli_real_escape_string($conexao, $_GET['idUsuario']);
-    $sql = "SELECT nomeUsuario, emailUsuario, loginUsuario FROM usuarios WHERE idUsuario = '$usuario_id'";
-    $query = mysqli_query($conexao, $sql);
-
-    if (mysqli_num_rows($query) > 0) {
-        $usuario = mysqli_fetch_array($query);
-    } else {
-        die("<h5>Usuário não encontrado!</h5>");
-    }
-} else {
-    die("<h5>ID do usuário não informado!</h5>");
-}
 ?>
 
 <!DOCTYPE html>
@@ -68,16 +55,34 @@ if (isset($_GET['idUsuario'])) {
     </nav>
 <main>
   <div class="admin-card">
-    <h2>Detalhes do Usuário</h2>
+    <h2>Sobre</h2>
+                        <?php
+                        if(isset($_GET['idSobre'])) {
+                            $sobre_id = mysqli_real_escape_string($conexao, $_GET['idSobre']);
+                            $sql = "SELECT * FROM sobre WHERE idSobre = '$sobre_id'";
+                            $query = mysqli_query($conexao, $sql);
 
-    <p><strong>Nome:</strong> <?= htmlspecialchars($usuario['nomeUsuario']) ?></p>
-    <p><strong>E-mail:</strong> <?= htmlspecialchars($usuario['emailUsuario']) ?></p>
-    <p><strong>Login:</strong> <?= htmlspecialchars($usuario['loginUsuario']) ?></p>
+                            if (mysqli_num_rows($query) > 0) {
+                                $sobre = mysqli_fetch_array($query);
+                                //var_dump($usuario);
+                    ?>
+
+    <p><strong>Texto</strong> <?= htmlspecialchars($sobre['textoSobre']) ?></p>
+    <p><strong>Imagem:</strong> <?= htmlspecialchars($sobre['imagemSobre']) ?></p>
+    <p><strong>Missão:</strong> <?= htmlspecialchars($sobre['missaoSobre']) ?></p>
+    <p><strong>Visão:</strong> <?= htmlspecialchars($sobre['visaoSobre']) ?></p>
+    <p><strong>Valores:</strong> <?= htmlspecialchars($sobre['valoresSobre']) ?></p>
 
     <div style="margin-top: 24px;">
-      <a href="listarUsuarios.php" class="botao-admin">Voltar</a>
+      <a href="listarSobre.php" class="botao-admin">Voltar</a>
     </div>
   </div>
+                      <?php
+                            } else {
+                                echo "<h5>Usuário não encontrado!</h5>";
+                            }
+                        }
+                    ?>
 </main>
 
 </body>

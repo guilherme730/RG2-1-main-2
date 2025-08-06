@@ -1,19 +1,6 @@
-<?php
-include("../banco/conexao.php");
-
-if (isset($_GET['idUsuario'])) {
-    $usuario_id = mysqli_real_escape_string($conexao, $_GET['idUsuario']);
-    $sql = "SELECT nomeUsuario, emailUsuario, loginUsuario FROM usuarios WHERE idUsuario = '$usuario_id'";
-    $query = mysqli_query($conexao, $sql);
-
-    if (mysqli_num_rows($query) > 0) {
-        $usuario = mysqli_fetch_array($query);
-    } else {
-        die("<h5>Usuário não encontrado!</h5>");
-    }
-} else {
-    die("<h5>ID do usuário não informado!</h5>");
-}
+<?php 
+    include ("verifica.php");
+    include ("../banco/conexao.php");
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +21,7 @@ if (isset($_GET['idUsuario'])) {
 
 <body>
     <!-- MENU LATERAL (expansão por hover já em styleadmin.css) -->
-     <nav class="menu" id="menuAdmin">
+    <nav class="menu" id="menuAdmin">
         <ul class="menu-content">
             <li><a href="#Home"><span class="material-symbols-outlined">home</span><span>Home</span></a></li>
             <li class="dropdown">
@@ -66,19 +53,60 @@ if (isset($_GET['idUsuario'])) {
             <li><a href="#Logout"><span class="material-symbols-outlined">logout</span><span>Logout</span></a></li>
         </ul>
     </nav>
-<main>
+   <main>
+
   <div class="admin-card">
-    <h2>Detalhes do Usuário</h2>
+<h2>Modalidades Cadastradas</h2>
 
-    <p><strong>Nome:</strong> <?= htmlspecialchars($usuario['nomeUsuario']) ?></p>
-    <p><strong>E-mail:</strong> <?= htmlspecialchars($usuario['emailUsuario']) ?></p>
-    <p><strong>Login:</strong> <?= htmlspecialchars($usuario['loginUsuario']) ?></p>
+            <table class="tabela-admin">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Modalidade</th>
+                        <th>Descrição</th>
+                        <th>Professores</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                                $sql = "SELECT * FROM modalidades";
+                                $modalidades = mysqli_query($conexao, $sql);
+                                if (mysqli_num_rows($modalidades) > 0) {
+                                    foreach($modalidades as $modalidade) {
+                                
+                            ?>
+                    <tr>
+                        <td><?= htmlspecialchars($modalidade['idModalidade']) ?></td>
+                        <td><?= htmlspecialchars($modalidade['nomeModalidade']) ?></td>
+                        <td><?= htmlspecialchars($modalidade['textoModalidade']) ?></td>
+                        <td><?= htmlspecialchars($modalidade['professorModalidade']) ?></td>
+                        <td>
+                            <a href="verModalidade.php?idModalidade=<?= $modalidade['idModalidade'] ?>" class="botao-acao">Ver</a>
+                            <a href="frmEditarModalidade.php?idModalidade=<?= $modalidade['idModalidade'] ?>" class="botao-acao botao-editar">Editar</a>
+                            <form action="frmApagarModalidade.php" method="post" style="display:inline-block;">
+                                <button type="submit" name="apagarModalidade" value="<?= $modalidade['idModalidade'] ?>" class="botao-acao botao-excluir" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <?php
+                            }
+                        } else {
+                            echo '<tr><td colspan="5">Nenhuma modalidade encontrada.</td></tr>';
+                        }
+                    ?>
+                </tbody>
+            </table>
 
-    <div style="margin-top: 24px;">
-      <a href="listarUsuarios.php" class="botao-admin">Voltar</a>
-    </div>
+            <div style="margin-top: 24px;">
+                <a href="frmCadastrarModalidades.php" class="botao-admin">Nova Modalidade</a>
+            </div>
+
+  
   </div>
 </main>
-
+</div>
+</div>
 </body>
+
 </html>

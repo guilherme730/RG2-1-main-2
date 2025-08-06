@@ -1,4 +1,6 @@
-
+<?php
+    include ("../banco/conexao.php");
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -18,12 +20,19 @@
 
 <body>
     <!-- MENU LATERAL (expansão por hover já em styleadmin.css) -->
-    <nav class="menu" id="menuAdmin">
+     <nav class="menu" id="menuAdmin">
         <ul class="menu-content">
             <li><a href="#Home"><span class="material-symbols-outlined">home</span><span>Home</span></a></li>
-            <li><a href="#Sobre"><span class="material-symbols-outlined">dashboard</span><span>Sobre</span></a></li>
-            <li><a href="#Modalidades"><span
-                        class="material-symbols-outlined">sports_soccer</span><span>Modalidades</span></a>
+            <li class="dropdown">
+              <a href="listarSobre.php"><span class="material-symbols-outlined">dashboard</span><span>Sobre</span></a>
+</li>
+<li class="dropdown">
+            <a href="#"><span class="material-symbols-outlined">sports_soccer</span><span>Modalidades</span></a>
+  <ul class="dropdown-content">
+    <li><a href="frmCadastrarModalidades.php"><span class="material-symbols-outlined">person_add</span><span>Cadastrar</span></a></li>
+    <li><a href="listarModalidades.php"><span class="material-symbols-outlined">list</span><span>Listar</span></a></li>
+  </ul>
+</li>
                         
             <li><a href="#Galeria"><span class="material-symbols-outlined">photo_library</span><span>Galeria</span></a>
             </li>
