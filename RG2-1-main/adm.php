@@ -33,8 +33,7 @@
                             <a href="#"><span class="material-symbols-outlined">person</span><span>Usuários</span></a>
                             <ul class="dropdown-content">
                               <li><a href="admin/fmrCadastrarUsuario.php"><span class="material-symbols-outlined">person_add</span><span>Cadastrar</span></a></li>
-                              <li><a href="#EditarUsuario"><span class="material-symbols-outlined">edit</span><span>Editar</span></a></li>
-                              <li><a href="#ListarUsuario"><span class="material-symbols-outlined">list</span><span>Listar</span></a></li>
+                              <li><a href="admin/listarUsuarios.php"><span class="material-symbols-outlined">list</span><span>Listar</span></a></li>
                             </ul>
                           </li>
                           

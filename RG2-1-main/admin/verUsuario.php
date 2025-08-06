@@ -50,9 +50,8 @@ if (isset($_GET['idUsuario'])) {
                         <li class="dropdown">
                             <a href="#"><span class="material-symbols-outlined">person</span><span>Usuários</span></a>
                             <ul class="dropdown-content">
-                              <li><a href="#CadastrarUsuario"><span class="material-symbols-outlined">person_add</span><span>Cadastrar</span></a></li>
-                              <li><a href="#EditarUsuario"><span class="material-symbols-outlined">edit</span><span>Editar</span></a></li>
-                              <li><a href="#ListarUsuario"><span class="material-symbols-outlined">list</span><span>Listar</span></a></li>
+                              <li><a href="fmrCadastrarUsuario.php"><span class="material-symbols-outlined">person_add</span><span>Cadastrar</span></a></li>
+                              <li><a href="listarUsuarios.php"><span class="material-symbols-outlined">list</span><span>Listar</span></a></li>
                             </ul>
                           </li>
                           

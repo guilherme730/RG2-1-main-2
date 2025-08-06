@@ -43,27 +43,28 @@
             <li><a href="#Logout"><span class="material-symbols-outlined">logout</span><span>Logout</span></a></li>
         </ul>
     </nav>
- <main>
+   <main>
+
   <div class="admin-card">
-    <h2>Cadastrar Usuário</h2>
-    <form action="inserirUsuarios.php" method="post">
-      <label for="nome">Nome Completo</label>
-      <input type="text" name="nomeUsuario" id="nomeUsuario" required>
+  <h2>Cadastrar Modalidades</h2>
+    <form action="inserirModalidades.php" method="post">
+      <label for="nome">Modalidades</label>
+      <input type="text" name="nomeModalidade" id="nomeModalidade" required>
 
-      <label for="email">E-mail</label>
-      <input type="email" name="emailUsuario" id="emailUsuario" required>
+      <label for="texto">Texto Sobre a Modalidade</label>
+      <input type="text" name="textoModalidade" id="textoModalidade" required>
 
-      <label for="login">Login</label>
-      <input type="text" name="loginUsuario" id="loginUsuario" required>
+      <label for="professores">Professores</label>
+      <input type="text" name="professorModalidade" id="professorModalidade" required>
 
-      <label for="pwd">Senha</label>
-      <input type="password" name="senhaUsuario" id="senhaUsuario" required>
-
-      <button type="submit" name="cadastroUsuario" class="botao-admin">Cadastrar</button>
+      <button type="submit" name="cadastroModalidade" class="botao-admin">Cadastrar</button>
     </form>
+
+  
   </div>
 </main>
-
-
+</div>
+</div>
 </body>
+
 </html>
